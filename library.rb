@@ -1,9 +1,9 @@
 class Library
-  def search(searchterm)
-    collection.find_all { |book| book == searchterm }
+  def initialize(collection)
+    @collection = collection 
   end
 
-  def collection
-    ["alice in wonderland","toad hall","agile development for pros"]
+  def search(searchterm)
+    @collection.find_all { |book| book == searchterm }
   end
 end
