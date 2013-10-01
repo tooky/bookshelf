@@ -4,9 +4,7 @@ require_relative '../../library.rb'
 
 module UIDriver
   def initialize_bookshelf
-    @bookshelf = Bookshelf.new
-    @bookshelf.add("Cucumber")
-    @bookshelf.add("Return of the Cucumber")
+    @bookshelf = Bookshelf.new(collection)
   end
 
   def search_for_title(title)
@@ -28,6 +26,6 @@ module UIDriver
   end
 
   def collection
-    ["alice in wonderland","toad hall","agile development for pros"]
+    ['Cucumber', 'Return of the Cucumber',"alice in wonderland","toad hall","agile development for pros"]
   end
 end
