@@ -1,6 +1,5 @@
 require_relative '../../bookshelf.rb'
 require_relative '../../results.rb'
-require_relative '../../library.rb'
 
 module UIDriver
   def initialize_bookshelf
@@ -17,8 +16,7 @@ module UIDriver
   end
 
 	def search(searchterm)
-    library = Library.new(collection)
-    @results = library.search(searchterm)
+    @results = @bookshelf.search(searchterm)
   end
 
   def results
