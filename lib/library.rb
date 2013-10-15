@@ -44,5 +44,3 @@ post '/' do
   end
   return_str + "</ul>"
 end
-
-
