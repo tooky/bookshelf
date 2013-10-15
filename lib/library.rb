@@ -14,3 +14,22 @@ class Library
   end
 
 end
+
+require 'sinatra'
+helpers do
+  def library
+    return $library if $library # if we're running tests
+    library = Library.new
+    10.times {library.add_book 'Some book'}
+    library
+  end
+end
+get '/' do
+  erb :index
+end
+
+get '/search' do
+  @query = params[:query]
+  @results = library.search_by_title(@query)
+  erb :search
+end
