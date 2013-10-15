@@ -14,3 +14,8 @@ class Library
   end
 
 end
+
+require 'sinatra'
+get '/' do
+  'Welcome to the bookshelf'
+end
