@@ -1,29 +1,59 @@
-require_relative '../../bookshelf.rb'
-require_relative '../../results.rb'
+require 'library'
 
-module UIDriver
-  def initialize_bookshelf
-    @bookshelf = Bookshelf.new(collection)
+module DomainDriver
+
+  def library
+    @library ||= Library.new
   end
 
-  def search_for_title(title)
-    @results = @bookshelf.search(title)
+  def search_by_title(title)
+    @search_results = library.search_by_title title
   end
 
-  def expect_all_results_to_match(title)
-    expect( @results[0] ).to match(/#{title}/)
-    expect( @results[1] ).to match(/#{title}/)
+  def search_results 
+    @search_results
   end
 
-	def search(searchterm)
-    @results = @bookshelf.search(searchterm)
+  def add_book(title)
+    library.add_book title
   end
 
-  def results
-    @results
+end
+
+module WebUIDriver
+
+  def library
+    unless @library
+      @library = Library.new  
+      Capybara.app.set :library, @library
+    end
+    @library
   end
 
-  def collection
-    ['Cucumber', 'Return of the Cucumber',"alice in wonderland","toad hall","agile development for pros"]
+  
+  def search_by_title(title)
+    visit '/'
+    fill_in 'query', with: title
+    click_button 'Search'
   end
+
+  def add_book(title)
+    library.add_book(title) 
+  end
+
+  def search_results
+    all('.result').map { |element| element.text }
+  end
+
+end
+
+if ENV['DOMAIN']
+  World(DomainDriver)
+else
+  require 'capybara/cucumber'
+
+  Capybara.app = Sinatra::Application
+  Capybara.app.set :environment, :test
+  Capybara.save_and_open_page_path = File.expand_path("./tmp/capybara")
+  World(WebUIDriver)
 end
