@@ -20,7 +20,17 @@ module DomainDriver
 
 end
 
+module WebUIDriver
+  def search_by_title(title)
+    visit '/'
+    fill_in 'Query', with: title
+    click_button 'Title'
+  end
+end
+
 if ENV['WEB_UI']
+  require 'capybara/cucumber'
+  Capybara.app = Sinatra::Application
   World(WebUIDriver)
 else
   World(DomainDriver)
