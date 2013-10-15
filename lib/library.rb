@@ -16,6 +16,10 @@ class Library
 end
 
 require 'sinatra'
+configure do
+  set :library, Library.new
+end
+
 get '/' do 
   %{
 <html>
@@ -33,8 +37,12 @@ get '/' do
 end
 
 post '/' do
-  "The book you searched for was " + params[:booktitle]
-
+  books = settings.library.search_by_title(params[:booktitle])
+  return_str = "<ul>"
+  books.each do |book|
+    return_str += "<li class=\"result\">#{book}</li>"
+  end
+  return_str + "</ul>"
 end
 
 
