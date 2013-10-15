@@ -14,3 +14,27 @@ class Library
   end
 
 end
+
+require 'sinatra'
+get '/' do 
+  %{
+<html>
+<head></head>
+<body>
+  <form method="POST">
+    <input type="text" id="query" name="booktitle" />
+
+	   <button id="search">Search</button>
+
+  </form>
+</body>
+</html>
+}
+end
+
+post '/' do
+  "The book you searched for was " + params[:booktitle]
+
+end
+
+
