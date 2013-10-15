@@ -1,6 +1,6 @@
 require 'library'
 
-module UIDriver
+module DomainDriver
 
   def library
     @library ||= Library.new
@@ -20,5 +20,40 @@ module UIDriver
 
 end
 
-World(UIDriver)
+module WebUIDriver
 
+  def library
+    unless @library
+      @library = Library.new  
+      Capybara.app.set :library, @library
+    end
+    @library
+  end
+
+  
+  def search_by_title(title)
+    visit '/'
+    fill_in 'query', with: title
+    click_button 'Search'
+  end
+
+  def add_book(title)
+    library.add_book(title) 
+  end
+
+  def search_results
+    all('.result').map { |element| element.text }
+  end
+
+end
+
+if ENV['DOMAIN']
+  World(DomainDriver)
+else
+  require 'capybara/cucumber'
+
+  Capybara.app = Sinatra::Application
+  Capybara.app.set :environment, :test
+  Capybara.save_and_open_page_path = File.expand_path("./tmp/capybara")
+  World(WebUIDriver)
+end
