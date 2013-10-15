@@ -17,5 +17,5 @@ end
 
 require 'sinatra'
 get '/' do
-  'Welcome to the bookshelf'
+  erb :home
 end
