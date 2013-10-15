@@ -7,5 +7,6 @@ end
 desc "run the cukes"
 task "cukes" do
   sh "cucumber -f progress"
+  sh "WEB_UI=1 cucumber -f progress"
 end
 

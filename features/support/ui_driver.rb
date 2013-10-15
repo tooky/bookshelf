@@ -1,6 +1,6 @@
 require 'library'
 
-module UIDriver
+module DomainDriver
 
   def library
     @library ||= Library.new
@@ -20,5 +20,9 @@ module UIDriver
 
 end
 
-World(UIDriver)
+if ENV['WEB_UI']
+  World(WebUIDriver)
+else
+  World(DomainDriver)
+end
 
