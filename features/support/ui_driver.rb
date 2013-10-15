@@ -23,6 +23,7 @@ end
 module WebUIDriver
   def search_by_title(title)
     visit '/'
+    save_and_open_page
     fill_in 'Query', with: title
     click_button 'Title'
   end
@@ -31,6 +32,7 @@ end
 if ENV['WEB_UI']
   require 'capybara/cucumber'
   Capybara.app = Sinatra::Application
+  Capybara.save_and_open_page_path = File.expand_path("./tmp/capybara")
   World(WebUIDriver)
 else
   World(DomainDriver)
