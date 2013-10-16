@@ -1,5 +1,3 @@
-require 'library'
-
 module DomainDriver
 
   def library
@@ -45,15 +43,4 @@ module WebUIDriver
     all('.result').map { |element| element.text }
   end
 
-end
-
-if ENV['DOMAIN']
-  World(DomainDriver)
-else
-  require 'capybara/cucumber'
-
-  Capybara.app = Sinatra::Application
-  Capybara.app.set :environment, :test
-  Capybara.save_and_open_page_path = File.expand_path("./tmp/capybara")
-  World(WebUIDriver)
 end
