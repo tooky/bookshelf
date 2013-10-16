@@ -1,4 +1,4 @@
-require 'library'
+require 'bookshelf_app'
 
 module WebUIDriver
   def search_by_title(title)
