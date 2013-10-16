@@ -18,3 +18,11 @@ get '/search' do
   @results = settings.library.search_by_title( params[:query] )
   erb :search_results
 end
+
+get '/add' do
+  erb :add_book
+end
+
+post '/save_book' do
+  settings.library.add_book(params[:title])
+end
