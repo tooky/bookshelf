@@ -15,10 +15,14 @@ class Library
 end
 
 require 'sinatra'
+require 'sinatra/reloader'
+
 configure do
   library = Library.new
   set :library, library
 end
+
+register Sinatra::Reloader
 
 get '/' do
   erb :root
