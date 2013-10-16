@@ -11,4 +11,8 @@ class Library
     raise ArgumentError if title.to_s.strip.length < 1
     @books.find_all { |n| n.match(title) }
   end
+
+  def count
+    @books.count
+  end
 end

@@ -23,10 +23,12 @@ module WebUIDriver
     @library
   end
 
+  def book_count
+    @library.count
+  end
 end
 
 module DomainDriver
-
   def library
     @library ||= Library.new
   end
@@ -43,6 +45,9 @@ module DomainDriver
     library.add_book title
   end
 
+  def book_count
+    @library.count
+  end
 end
 
 if ENV['DOMAIN']
