@@ -21,16 +21,7 @@ configure do
 end
 
 get '/' do
-  %{<html>
-    <head></head>
-    <body>
-      <form action="/search" method="get">
-        <input type="text" id="query" name="query" />
-        <input type="submit" id="submit" value="Search" />
-      </form>
-    </body>
-    </html>
-  }
+  erb :root
 end
 
 get '/search' do
