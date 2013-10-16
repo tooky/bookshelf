@@ -1,6 +1,10 @@
 require 'bookshelf_app'
 
 module WebUIDriver
+  def init
+    Sinatra::Application.set :library, Library.new
+  end
+
   def search_by_title(title)
     visit '/'
     fill_in 'query', with: title
@@ -18,9 +22,7 @@ module WebUIDriver
   end
 
   def library
-    @library ||= Library.new
-    Sinatra::Application.set :library, @library
-    @library
+    Sinatra::Application.settings.library
   end
 
   def book_count
@@ -29,8 +31,12 @@ module WebUIDriver
 end
 
 module DomainDriver
+  def init
+    @library = Library.new
+  end
+
   def library
-    @library ||= Library.new
+    @library
   end
 
   def search_by_title(title)

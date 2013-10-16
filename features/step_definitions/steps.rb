@@ -1,3 +1,7 @@
+Before do
+  init
+end
+
 Given(/^an empty bookshelf$/) do
 end
 
