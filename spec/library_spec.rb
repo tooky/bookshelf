@@ -1,6 +1,6 @@
 require 'library'
 
-describe "Library" do 
+describe "Library" do
   subject { Library.new }
 
   it 'should find a book if the search matches a book in the library' do

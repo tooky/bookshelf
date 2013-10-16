@@ -30,6 +30,10 @@ module WebUIDriver
 
   def add_book(book)
     library.add_book(book)
+    visit '/'
+    save_and_open_page
+    fill_in 'query', with: book
+    click_button 'Add a book'
   end
 
   def search_results

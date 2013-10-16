@@ -1,11 +1,23 @@
-  <html>
-  <head></head>
-  <body>
+<html>
+<head></head>
+<body>
+  <h1> Library </h1>
+    <form action="/search" method="get">
+      <input type="text" id="query" name="query"/>
+      <input type=submit value=Search>
+      <input type=submit value=Add a book
+        formaction="/add">
+    </form>
+  <h3> Search results: </h3>
+  <% if @results.empty? %>
+    <p>There is no such book in the library.</p>
+  <% else %>
     <ul class="results">
       <% @results.each do |result| %>
       <li><%= result %></li>
       <% end %>
     </ul>
-  </body>
-  </html>
+  <% end %>
+</body>
+</html>
 
