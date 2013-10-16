@@ -16,7 +16,7 @@ end
 
 get '/search' do
   @results = settings.library.search_by_title( params[:query] )
-  erb :search_results
+  erb :root
 end
 
 get '/add' do
