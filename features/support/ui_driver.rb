@@ -26,7 +26,7 @@ module WebUIDriver
   end
 
   def book_count
-    @library.count
+    library.count
   end
 end
 
@@ -52,7 +52,7 @@ module DomainDriver
   end
 
   def book_count
-    @library.count
+    library.count
   end
 end
 
