@@ -1,7 +1,10 @@
 require 'app'
+require 'data_mapper'
 
 module WebUIDriver
   def init
+    DataMapper.setup(:default, 'sqlite::memory:')
+    DataMapper.finalize.auto_migrate!
     Sinatra::Application.set :library, Library.new
   end
 
@@ -34,6 +37,8 @@ end
 
 module DomainDriver
   def init
+    DataMapper.setup(:default, 'sqlite::memory:')
+    DataMapper.finalize.auto_migrate!
     @library = Library.new
   end
 

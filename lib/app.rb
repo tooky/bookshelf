@@ -1,7 +1,15 @@
 require 'sinatra'
 require 'sinatra/reloader'
+require 'data_mapper'
+require 'dm-migrations'
 
 require_relative './library'
+require_relative './book'
+
+unless ENV['RACK_ENV'] == 'test'
+  DataMapper.setup(:default, 'postgres://postgres:postgres@localhost/bookshelf')
+  DataMapper.finalize.auto_upgrade!
+end
 
 configure do
   library = Library.new

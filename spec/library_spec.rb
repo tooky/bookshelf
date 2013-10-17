@@ -1,7 +1,13 @@
+require 'sinatra'
 require 'library'
 
 describe "Library" do 
   subject { Library.new }
+
+  before(:all) do
+    DataMapper.setup(:default, 'sqlite::memory:')
+    DataMapper.finalize.auto_upgrade!
+  end
 
   it 'should find a book if the search matches a book in the library' do
     mysearch = "Grape"

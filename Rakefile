@@ -1,3 +1,5 @@
+require 'data_mapper'
+
 task :default => [:specs, 'cukes-domain', 'cukes-web-ui']
 desc "run the specs"
 task "specs" do

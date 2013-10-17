@@ -1,18 +1,19 @@
+require_relative './book'
+
 class Library
   def initialize
-    @books = []
   end
 
   def add_book(title)
-    @books << title
+    Book.create!(title: title)
   end
 
   def search_by_title(title)
     raise ArgumentError if title.to_s.strip.length < 1
-    @books.find_all { |n| n.match(title) }
+    Book.all.select { |book| book.title.match(title) }.map(&:title)
   end
 
   def count
-    @books.count
+    Book.count
   end
 end
