@@ -1,11 +1,12 @@
 require_relative './book'
 
 class Library
-  def initialize
-  end
-
   def add_book(title)
-    Book.create!(title: title)
+    book = Book.first(title: title)
+
+    if book then book.increment
+    else Book.create!(title: title)
+    end
   end
 
   def search_by_title(title)

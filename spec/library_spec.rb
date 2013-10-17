@@ -4,9 +4,11 @@ require 'library'
 describe "Library" do 
   subject { Library.new }
 
-  before(:all) do
+  let(:title) { 'Ruby Programming' }
+
+  before(:each) do
     DataMapper.setup(:default, 'sqlite::memory:')
-    DataMapper.finalize.auto_upgrade!
+    DataMapper.finalize.auto_migrate!
   end
 
   it 'should find a book if the search matches a book in the library' do
@@ -36,5 +38,10 @@ describe "Library" do
     subject.add_book( 'History' )
     mysearch = "ology"
     expect(subject.search_by_title(mysearch)).to eq(['Sociology','Psychology'])
+  end
+
+  it 'should group identical books together' do
+    4.times { subject.add_book(title) }
+    expect(subject.count).to eq(1)
   end
 end

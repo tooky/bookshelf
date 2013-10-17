@@ -4,7 +4,7 @@ end
 
 Given(/^a library with (\d+) books in it$/) do |no_of_books|
   no_of_books.times do |book|
-    library.add_book("book number #{no_of_books}")
+    library.add_book("book number #{book}")
   end
 end
 
