@@ -1,29 +1,76 @@
-require_relative '../../bookshelf.rb'
-require_relative '../../results.rb'
+require 'app'
+require 'data_mapper'
 
-module UIDriver
-  def initialize_bookshelf
-    @bookshelf = Bookshelf.new(collection)
+module WebUIDriver
+  def init
+    DataMapper.setup(:default, 'sqlite::memory:')
+    DataMapper.finalize.auto_migrate!
+    Sinatra::Application.set :library, Library.new
   end
 
-  def search_for_title(title)
-    @results = @bookshelf.search(title)
+  def search_by_title(title)
+    visit '/'
+    fill_in 'query', with: title
+    click_button 'submit'
   end
 
-  def expect_all_results_to_match(title)
-    expect( @results[0] ).to match(/#{title}/)
-    expect( @results[1] ).to match(/#{title}/)
+  def add_book(title)
+    visit '/add'
+    fill_in 'title', with: title
+    click_button 'save'
   end
 
-	def search(searchterm)
-    @results = @bookshelf.search(searchterm)
+  def search_results
+    all('.result').map do |element|
+      element.text
+    end
   end
 
-  def results
-    @results
+  def library
+    Sinatra::Application.settings.library
   end
 
-  def collection
-    ['Cucumber', 'Return of the Cucumber',"alice in wonderland","toad hall","agile development for pros"]
+  def book_count
+    library.count
   end
 end
+
+module DomainDriver
+  def init
+    DataMapper.setup(:default, 'sqlite::memory:')
+    DataMapper.finalize.auto_migrate!
+    @library = Library.new
+  end
+
+  def library
+    @library
+  end
+
+  def search_by_title(title)
+    @search_results = library.search_by_title title
+  end
+
+  def search_results 
+    @search_results
+  end
+
+  def add_book(title)
+    library.add_book title
+  end
+
+  def book_count
+    library.count
+  end
+end
+
+if ENV['DOMAIN']
+  World(DomainDriver)
+else
+  require 'capybara/cucumber'
+
+  Capybara.app = Sinatra::Application
+  Capybara.app.set :environment, :test
+  Capybara.save_and_open_page_path = File.expand_path("./tmp/capybara")
+  World(WebUIDriver)
+end
+
