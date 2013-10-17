@@ -7,7 +7,7 @@ require_relative './library'
 require_relative './book'
 
 unless ENV['RACK_ENV'] == 'test'
-  DataMapper.setup(:default, 'postgres://postgres:postgres@localhost/bookshelf')
+  DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://postgres:postgres@localhost/bookshelf')
   DataMapper.finalize.auto_upgrade!
 end
 
