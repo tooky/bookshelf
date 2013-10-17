@@ -26,6 +26,7 @@ module WebUIDriver
       Capybara.app.set :library, @library
     end
     @library
+   
   end
 
   

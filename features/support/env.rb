@@ -3,7 +3,9 @@ require_relative 'ui_driver.rb'
 
 if ENV['DOMAIN']
   World(DomainDriver)
+  puts "running the domain"
 else
+  puts "running the web app"
   require 'capybara/cucumber'
   Capybara.app = BookshelfApp
   Capybara.app.set :environment, :test
