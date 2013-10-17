@@ -29,9 +29,7 @@ module WebUIDriver
   end
 
   def search_results
-    all('.result').map do |element|
-      element.text
-    end
+    all('.result').map(&:text)
   end
 
   def library
