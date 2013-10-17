@@ -16,6 +16,10 @@ module DomainDriver
     library.add_book title
   end
 
+  def clear_bookshelf
+    library.clear_bookshelf
+  end
+
 end
 
 module WebUIDriver
@@ -42,6 +46,10 @@ module WebUIDriver
 
   def search_results
     all('.result').map { |element| element.text }
+  end
+
+  def clear_bookshelf
+    library.clear_bookshelf
   end
 
 end

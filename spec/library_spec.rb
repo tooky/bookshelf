@@ -5,6 +5,7 @@ describe "Library" do
 
   it 'should find a book if the search matches a book in the library' do
     mysearch = "Grape"
+    subject.clear_bookshelf
     subject.add_book( mysearch )
     result = subject.search_by_title( mysearch )
     expect(result).to eq(["Grape"])
@@ -25,6 +26,7 @@ describe "Library" do
   end
 
   it 'should find books with a partial match' do
+    subject.clear_bookshelf
     subject.add_book( 'Sociology' )
     subject.add_book( 'Psychology' )
     subject.add_book( 'History' )
