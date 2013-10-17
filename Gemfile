@@ -9,7 +9,9 @@ gem 'pg'
 
 group :test do
   gem 'cucumber'
+  gem 'cucumber-sinatra'
   gem 'rspec'
   gem 'capybara'
   gem 'launchy'
+  gem 'dm-sqlite-adapter'
 end
