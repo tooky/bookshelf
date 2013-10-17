@@ -1,0 +1,16 @@
+<html>
+  <head></head>
+  <body>
+    <form action="/search">
+      <h1>BookShelf</h1>
+      <nav>
+      <ul>
+        <li><a href="/add">Add book</a></li>
+      </ul>
+      </nav>
+      <p>There are currently <b><%= settings.library.books.size %></b> books in the library</p>
+      <input type="text" id="query" name="query" />
+      <input type="submit" id="search" value="Search">
+    </form>
+  </body>
+</html>
