@@ -7,4 +7,7 @@ group :test do
   gem 'rspec'
   gem 'capybara'
   gem 'launchy'
+  gem 'mongo'
+  gem 'bson_ext'
 end
+

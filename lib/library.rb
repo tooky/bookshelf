@@ -1,4 +1,8 @@
+require 'mongo'
+require 'json/ext'
+
 class Library
+
 
   def initialize
     @books = []

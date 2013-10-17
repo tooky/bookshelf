@@ -1,4 +1,5 @@
 #require "bundler/setup"
+
 require 'sinatra/base'
 require 'json'
 require './lib/library'
