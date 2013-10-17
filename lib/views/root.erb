@@ -1,0 +1,17 @@
+<html>
+  <head></head>
+  <body>
+    <form action="/search" method="get">
+      <input type="text" id="query" name="query" />
+      <input type="submit" id="submit" value="Search" />
+    </form>
+    <a href="/add">Add book</a>
+    <% if @results %>
+      <ul>
+        <% @results.each do |result| %>
+        <li class="result"><%= result %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </body>
+</html>

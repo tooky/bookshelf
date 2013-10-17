@@ -1,5 +1,4 @@
 class Library
-
   def initialize
     @books = []
   end
@@ -13,4 +12,7 @@ class Library
     @books.find_all { |n| n.match(title) }
   end
 
+  def count
+    @books.count
+  end
 end
