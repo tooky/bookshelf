@@ -12,6 +12,12 @@
         <li class="result"><%= result %></li>
         <% end %>
       </ul>
+    <% else %>
+      <ul>
+      <% Book.all.each do |book| %>
+        <li class="book"><%= book.title %></li>
+      <% end %>
+      </ul>
     <% end %>
   </body>
 </html>

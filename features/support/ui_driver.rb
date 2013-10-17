@@ -8,6 +8,14 @@ module WebUIDriver
     Sinatra::Application.set :library, Library.new
   end
 
+  def view_library
+    visit '/'
+  end
+
+  def visible_books
+    all('.book').map(&:text)
+  end
+
   def search_by_title(title)
     visit '/'
     fill_in 'query', with: title
@@ -40,6 +48,13 @@ module DomainDriver
     DataMapper.setup(:default, 'sqlite::memory:')
     DataMapper.finalize.auto_migrate!
     @library = Library.new
+  end
+
+  def visible_books
+    Book.all
+  end
+
+  def view_library
   end
 
   def library
