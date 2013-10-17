@@ -19,11 +19,9 @@ end
 register Sinatra::Reloader
 
 get '/' do
-  erb :root
-end
-
-get '/search' do
-  @results = settings.library.search_by_title( params[:query] )
+  if params[:query]
+    @results = settings.library.search_by_title(params[:query])
+  end
   erb :root
 end
 
