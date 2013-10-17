@@ -1,4 +1,4 @@
-require 'bookshelf_app'
+require 'app'
 
 module WebUIDriver
   def init
