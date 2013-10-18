@@ -22,7 +22,7 @@ When(/^I search for a book$/) do
 end
 
 Then(/^shows the book$/) do
-  expect( search_results ).to eq ["Ruby Programming"]
+  expect(search_results).to eq(["Ruby Programming"])
 end
 
 Given(/^a bookshelf with a few books$/) do

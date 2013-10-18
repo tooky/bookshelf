@@ -63,8 +63,8 @@ module DomainDriver
     @search_results = library.search_by_title title
   end
 
-  def search_results 
-    @search_results
+  def search_results
+    @search_results.map(&:title)
   end
 
   def add_book(title)
