@@ -21,6 +21,10 @@ module DomainDriver
 end
 
 module WebUIDriver
+  def library
+    @library ||= Library.new
+  end
+
   def search_by_title(title)
     visit '/'
     save_and_open_page
@@ -41,14 +45,6 @@ module WebUIDriver
       element.text
     end
   end
-
-  def library
-    $library
-  end
-end
-
-Before do
-  $library = Library.new
 end
 
 if ENV['DOMAIN']

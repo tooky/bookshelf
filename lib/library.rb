@@ -16,35 +16,50 @@ class Library
     @books.find_all { |n| n.downcase.match(title.downcase) }
   end
 
+  def number_of_books
+    @books.count
+  end
+
+  def invalid_title?(query)
+    query.to_s.strip.length < 1
+  end
 end
 
 require 'sinatra'
+configure do
   library = Library.new
+  set :library, library
+  INVALID = "Invalid book title"
+  ON_BOOKSHELF = "The book is already on the bookshelf."
+end
+
+before do
+  @count = settings.library.number_of_books
+end
 
 get '/' do
-  @total_books = library.books.count
   erb :index
 end
 
 get '/search' do
   @query = params[:query]
-  if @query.to_s.strip.length < 1
-    @results = "Invalid book title."
+  if settings.library.invalid_title?(@query)
+    @results = INVALID
   else
-    @results = library.search_by_title(@query)
+    @results = settings.library.search_by_title(@query)
   end
   erb :search
 end
 
 get '/add' do
   @query = params[:query]
-  if @query.to_s.strip.length < 1
-    @results = "Invalid book title."
-  elsif library.books.include?(@query)
-    @results = "The book is already on the bookshelf."
+  if settings.library.invalid_title?(@query)
+    @results = INVALID
+  elsif settings.library.books.include?(@query)
+    @results = ON_BOOKSHELF
   else
-    @new_books = library.add_book(@query)
-    @total_books = @new_books.count
+    settings.library.add_book(@query)
+    @count = settings.library.number_of_books
   end
   erb :add
 end
