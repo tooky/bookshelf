@@ -6,7 +6,9 @@ class Library
 
   def add_book(title)
     raise ArgumentError if title.to_s.strip.length < 1
-    @books << title
+    if !@books.include?(title)
+      @books << title
+    end
   end
 
   def search_by_title(title)
@@ -17,18 +19,8 @@ class Library
 end
 
 require 'sinatra'
-#helpers do
-#  def library
-#    return $library if $library # if we're running tests
-    library = Library.new
-    library.add_book 'Ruby Programming'
-#    library.add_book 'Java Programming'
-#    library.add_book 'Perl Programming'
-#    library.add_book 'C++ Programming'
-#    library.add_book 'C# Programming'
-#    library
-#  end
-#end
+  library = Library.new
+
 get '/' do
   @total_books = library.books.count
   erb :index
@@ -36,13 +28,23 @@ end
 
 get '/search' do
   @query = params[:query]
-  @results = library.search_by_title(@query)
+  if @query.to_s.strip.length < 1
+    @results = "Invalid book title."
+  else
+    @results = library.search_by_title(@query)
+  end
   erb :search
 end
 
 get '/add' do
   @query = params[:query]
-  @new_books = library.add_book(@query)
-  @total_books = @new_books.count
+  if @query.to_s.strip.length < 1
+    @results = "Invalid book title."
+  elsif library.books.include?(@query)
+    @results = "The book is already on the bookshelf."
+  else
+    @new_books = library.add_book(@query)
+    @total_books = @new_books.count
+  end
   erb :add
 end

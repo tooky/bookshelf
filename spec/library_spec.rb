@@ -31,4 +31,37 @@ describe "Library" do
     mysearch = "ology"
     expect(subject.search_by_title(mysearch)).to eq(['Sociology','Psychology'])
   end
+
+  it 'should perform a search that is not case-sensitive' do
+    subject.add_book( "Ruby Programming" )
+    mysearch = "ruby"
+    expect(subject.search_by_title(mysearch)).to eq(["Ruby Programming"])
+  end
+
+  it 'should count the number of books on the bookshelf' do
+    subject.add_book( "Ruby Programming" )
+    subject.add_book( "Perl Programming" )
+    expect(subject.books.count).to eq 2
+  end
+
+  it 'should not add the book that is already on the bookshelf' do
+    subject.add_book( "Ruby Programming" )
+    subject.add_book( "Ruby Programming" )
+    expect(subject.books.count).to eq 1
+  end
+
+  it 'should error when trying to add an empty string ' do
+    title = ""
+    expect{subject.add_book( title )}.to raise_error(ArgumentError)
+  end
+
+  it 'should error when trying to add whitespace ' do
+    title = "   "
+    expect{subject.add_book( title )}.to raise_error(ArgumentError)
+  end
+
+  it 'should error when trying to add nil' do
+    title = nil
+    expect{subject.add_book( title )}.to raise_error(ArgumentError)
+  end
 end
