@@ -43,5 +43,6 @@ describe "Library" do
   it 'should group identical books together' do
     4.times { subject.add_book(title) }
     expect(subject.count).to eq(1)
+    expect(subject.search_by_title(title).first.count).to eq(4)
   end
 end

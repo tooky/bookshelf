@@ -8,6 +8,6 @@ class Book
   property :count, Integer, default: 1
 
   def increment
-    self.count += 1
+    update(count: count + 1)
   end
 end
