@@ -26,6 +26,14 @@ module WebUIDriver
     fill_in 'Query', with: title
     click_button 'Title'
   end
+
+  def search_results
+    []
+  end
+
+  def add_book(title)
+
+  end
 end
 
 if ENV['WEB_UI']
