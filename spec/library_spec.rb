@@ -1,7 +1,7 @@
 require 'library'
 
 describe "Library" do 
-  subject { Library.new }
+  subject { Library.new('testshelf') }
 
   it 'should find a book if the search matches a book in the library' do
     mysearch = "Grape"

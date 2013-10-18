@@ -7,7 +7,7 @@ require './lib/library'
 class BookshelfApp < Sinatra::Base
 
   configure do
-    set :library, Library.new
+    set :library, Library.new('bookshelf')
   end
 
   get '/' do 
@@ -18,10 +18,10 @@ class BookshelfApp < Sinatra::Base
     erb :add
   end
 
-  get '/books.json' do
-    content_type :json
-    { :book1 => 'Ruby Programming', :book2 => 'Java Programming' }.to_json
-  end
+  #get '/books.json' do
+  #  content_type :json
+  #  { :book1 => 'Ruby Programming', :book2 => 'Java Programming' }.to_json
+  #end
 
   post '/' do
     books = settings.library.search_by_title(params[:booktitle])
@@ -29,8 +29,8 @@ class BookshelfApp < Sinatra::Base
   end
 
   post '/add' do
-    books = settings.library.add_book(params[:booktitle])
-    erb :results, locals: { books: books, message: "Library contains:" }
+    settings.library.add_book(params[:booktitle])
+    erb :results, locals: { books: [params[:booktitle]], message: "Library contains:" }
   end
 
   run! if app_file == $0

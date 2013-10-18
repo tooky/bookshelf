@@ -1,7 +1,7 @@
 module DomainDriver
 
   def library
-    @library ||= Library.new
+    @library ||= Library.new('testshelf')
   end
 
   def search_by_title(title)
@@ -26,7 +26,7 @@ module WebUIDriver
 
   def library
     unless @library
-      @library = Library.new  
+      @library = Library.new('bookshelf')
       Capybara.app.set :library, @library
     end
     @library
