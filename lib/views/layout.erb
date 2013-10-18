@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>OTB BookShelf</title>
+    <style>
+      body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+      #header {
+        border: 2px solid #AAA;
+        background-color: #DDD;
+        padding: 10px;
+      }
+      #header span {
+        font-weight: bold;
+      }
+      #header a {
+        text-decoration: none;
+        color: black;
+      }
+      #header a:hover {
+        text-decoration: underline;
+      }
+      p.success {
+        font-weight: bold;
+        color: green;
+      }
+      p.failed {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <span><a href="/">OTB BookShelf</a></span>
+    </div>
+
+    <%= yield %>
+  </body>
+</html>

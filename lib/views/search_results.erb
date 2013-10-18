@@ -1,0 +1,11 @@
+<% if @results.empty? %>
+  <p class="failed">No books found for search &quot;<%= @query %>&quot;</p>
+<% else %>
+  <ul id="results">
+    <% @results.each do |result| %>
+      <li><%= result %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<p><a href="/">Return to search page</a></p>

@@ -1,3 +1,7 @@
+Before do
+  clear_books
+end
+
 Given(/^an empty bookshelf$/) do
 end
 

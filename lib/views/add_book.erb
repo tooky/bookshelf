@@ -1,0 +1,14 @@
+<h4>Add book page</h4>
+
+<% if @added_title %>
+  <p class="success">
+  Book &quot;<%= @added_title %>&quot; added successfully.
+  </p>
+<% end %>
+
+<form method="POST" action="/add_book">
+  <input type="text" name="title" />
+  <input type="submit" value="Add" />
+</form>
+
+<p><a href="/">Return to search page</a></p>
