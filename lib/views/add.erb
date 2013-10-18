@@ -1,0 +1,6 @@
+<% if @results.is_a? String %>
+  <%= @results %>
+<% else %>
+  <p> There are currently <b><%= @count %></b> books in the library. </p>
+  <p>The book <b><%= @query %></b> has been added to the library.</p>
+<% end %>

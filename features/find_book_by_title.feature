@@ -22,4 +22,3 @@ Feature: Find a book by title
     Given a bookshelf with a few books
     When I search for a book
     Then shows the book
-

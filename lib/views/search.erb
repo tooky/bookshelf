@@ -1,0 +1,13 @@
+<h3> Search results: </h3>
+<% if @results.is_a? String %>
+  <%= @results %>
+<% elsif @results.empty? %>
+  <p>There is no such book in the library.</p>
+<% else %>
+  <ul class="results">
+    <% @results.each do |result| %>
+    <li><%= result %></li>
+    <% end %>
+  </ul>
+<% end %>
+
