@@ -1,0 +1,23 @@
+<html>
+  <head></head>
+  <body>
+    <form action="/" method="get">
+      <input type="text" id="query" name="query" />
+      <input type="submit" id="submit" value="Search" />
+    </form>
+    <a href="/add">Add book</a>
+    <% if @results %>
+      <ul>
+        <% @results.each do |result| %>
+          <li class="result"><%= result.count %>x <%= result.title %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <ul>
+      <% Book.all.each do |book| %>
+        <li class="book"><%= book.count %>x <%= book.title %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  </body>
+</html>
