@@ -1,7 +1,7 @@
 class Library
   attr_reader :books
   def initialize
-    @books = []
+    @books = Bookshelf.new
   end
 
   def add_book(title)
@@ -15,6 +15,17 @@ class Library
   end
 
   class Book < Struct.new(:title)
+  end
+
+  class Bookshelf
+    extend Forwardable
+    include Enumerable
+
+    def_delegators :@books, :<<, :each, :size
+
+    def initialize
+      @books = []
+    end
   end
 end
 
