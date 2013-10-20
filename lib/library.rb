@@ -1,3 +1,5 @@
+require_relative 'library/bookshelf'
+
 class Library
   attr_reader :books
   def initialize
@@ -14,25 +16,6 @@ class Library
   end
 
   class Book < Struct.new(:title)
-  end
-
-  class Bookshelf
-    extend Forwardable
-
-    def_delegators :@books, :size
-
-    def initialize
-      @books = []
-    end
-
-    def search_by_title(title)
-      raise ArgumentError if title.to_s.strip.length < 1
-      @books.find_all { |n| n if n.title.downcase.match title.downcase }
-    end
-
-    def add(book)
-      @books << book
-    end
   end
 end
 
