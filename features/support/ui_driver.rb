@@ -7,7 +7,7 @@ module DomainDriver
   end
 
   def search_by_title(title)
-    @search_results = library.search_by_title title
+    library.search_by_title title, self
   end
 
   def search_results
@@ -18,6 +18,9 @@ module DomainDriver
     library.add_book title
   end
 
+  def display_search_results(results)
+    @search_results = results
+  end
 end
 
 module WebUIDriver
