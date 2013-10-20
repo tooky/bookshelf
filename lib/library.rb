@@ -5,7 +5,7 @@ class Library
   end
 
   def add_book(title)
-    @books << Book.new(title)
+    @books.add Book.new(title)
   end
 
   def search_by_title(title, ui)
@@ -19,7 +19,7 @@ class Library
   class Bookshelf
     extend Forwardable
 
-    def_delegators :@books, :<<, :size
+    def_delegators :@books, :size
 
     def initialize
       @books = []
@@ -28,6 +28,10 @@ class Library
     def search_by_title(title)
       raise ArgumentError if title.to_s.strip.length < 1
       @books.find_all { |n| n if n.title.downcase.match title.downcase }
+    end
+
+    def add(book)
+      @books << book
     end
   end
 end
