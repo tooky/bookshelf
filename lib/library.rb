@@ -8,9 +8,10 @@ class Library
     @books << Book.new(title)
   end
 
-  def search_by_title(title)
+  def search_by_title(title, ui)
     raise ArgumentError if title.to_s.strip.length < 1
-    @books.find_all { |n| n if n.title.downcase.match title.downcase }
+    results = @books.find_all { |n| n if n.title.downcase.match title.downcase }
+    ui.display_search_results(results)
   end
 
   class Book < Struct.new(:title)

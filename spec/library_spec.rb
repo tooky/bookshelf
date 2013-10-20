@@ -2,26 +2,29 @@ require 'library'
 
 describe "Library" do 
   subject { Library.new }
+  let(:ui) { double(:ui) }
 
   it 'should find a book if the search matches a book in the library' do
     mysearch = "Grape"
     subject.add_book( mysearch )
-    result = subject.search_by_title( mysearch )
-    expect(result).to eq([Library::Book.new("Grape")])
+
+    ui.should_receive(:display_search_results).with([Library::Book.new("Grape")])
+
+    subject.search_by_title( mysearch, ui )
   end
 
   it 'should error when searching with empty string' do
     mysearch = ""
-    expect{subject.search_by_title(mysearch)}.to raise_error(ArgumentError)
+    expect{subject.search_by_title(mysearch, ui)}.to raise_error(ArgumentError)
   end
 
   it 'should error when searching with whitespace only string' do
     mysearch = "  "
-    expect{subject.search_by_title(mysearch)}.to raise_error(ArgumentError)
+    expect{subject.search_by_title(mysearch, ui)}.to raise_error(ArgumentError)
   end
 
   it 'should error when searching with nil' do
-    expect{subject.search_by_title(nil)}.to raise_error(ArgumentError)
+    expect{subject.search_by_title(nil, ui)}.to raise_error(ArgumentError)
   end
 
   it 'should find books with a partial match' do
@@ -29,8 +32,11 @@ describe "Library" do
     subject.add_book( 'Psychology' )
     subject.add_book( 'History' )
     mysearch = "ology"
-    expect(subject.search_by_title(mysearch)).to eq(
+
+    ui.should_receive(:display_search_results).with(
       [Library::Book.new('Sociology'),Library::Book.new('Psychology')]
     )
+
+    subject.search_by_title(mysearch, ui)
   end
 end
