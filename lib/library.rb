@@ -18,6 +18,12 @@ class Library
   end
 end
 
+class SearchResultsPage < Struct.new(:controller)
+  def display_search_results(results)
+    controller.erb :search, locals: { results: results }
+  end
+end
+
 require 'sinatra'
 configure do 
   library = Library.new
@@ -28,10 +34,6 @@ helpers do
   def library
     settings.library
   end
-
-  def display_search_results(results)
-    erb :search, locals: { results: results }
-  end
 end
 
 get '/' do
@@ -39,7 +41,7 @@ get '/' do
 end
 
 get '/search' do
-  library.search_by_title(params[:query], self)
+  library.search_by_title(params[:query], SearchResultsPage.new(self))
 end
 
 get '/add' do
