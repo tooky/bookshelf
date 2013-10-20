@@ -28,6 +28,10 @@ helpers do
   def library
     settings.library
   end
+
+  def display_search_results(results)
+    erb :search, locals: { results: results }
+  end
 end
 
 get '/' do
@@ -35,8 +39,7 @@ get '/' do
 end
 
 get '/search' do
-  @results = library.search_by_title(params[:query])
-  erb :search
+  library.search_by_title(params[:query], self)
 end
 
 get '/add' do
