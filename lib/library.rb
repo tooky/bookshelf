@@ -9,8 +9,7 @@ class Library
   end
 
   def search_by_title(title, ui)
-    raise ArgumentError if title.to_s.strip.length < 1
-    results = @books.find_all { |n| n if n.title.downcase.match title.downcase }
+    results = @books.search_by_title(title)
     ui.display_search_results(results)
   end
 
@@ -19,12 +18,16 @@ class Library
 
   class Bookshelf
     extend Forwardable
-    include Enumerable
 
-    def_delegators :@books, :<<, :each, :size
+    def_delegators :@books, :<<, :size
 
     def initialize
       @books = []
+    end
+
+    def search_by_title(title)
+      raise ArgumentError if title.to_s.strip.length < 1
+      @books.find_all { |n| n if n.title.downcase.match title.downcase }
     end
   end
 end
