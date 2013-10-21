@@ -48,4 +48,10 @@ module Library::Bookshelf
 
     it_should_behave_like 'a bookshelf'
   end
+
+  describe Mongo do
+    let(:bookshelf) { Mongo.new }
+
+    it_should_behave_like 'a bookshelf'
+  end
 end
