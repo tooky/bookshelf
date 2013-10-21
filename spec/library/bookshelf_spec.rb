@@ -1,9 +1,7 @@
 require 'library'
 
 module Library::Bookshelf
-  describe InMemory do
-    let(:bookshelf) { InMemory.new }
-
+  shared_examples_for 'a bookshelf' do
     it 'should find a book if the search matches a book in the library' do
       bookshelf.add( a_book("Grape") )
 
@@ -43,5 +41,11 @@ module Library::Bookshelf
     def a_book(title)
       Library::Book.new(title)
     end
+  end
+
+  describe InMemory do
+    let(:bookshelf) { InMemory.new }
+
+    it_should_behave_like 'a bookshelf'
   end
 end
