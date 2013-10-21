@@ -22,8 +22,18 @@ class Library
     books.map {|book| book['title'] }
   end
 
+
+
   def check_input(title)
     raise ArgumentError if title.to_s.strip.length < 1
+    # check if lower or upper case, and how to match against lower or upper case in database
+
+  end
+
+  def countbooks
+    totalbooks = @books.find.to_a
+    return totalbooks.length
+
   end
 
   def clear_bookshelf
