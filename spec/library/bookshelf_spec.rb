@@ -50,7 +50,12 @@ module Library::Bookshelf
   end
 
   describe Mongo do
-    let(:bookshelf) { Mongo.new }
+    let(:database)  { ::Mongo::MongoClient.new("localhost", 27017).db("bookshelf-test") }
+    let(:bookshelf) { Mongo.new(database) }
+
+    before do
+      bookshelf.clear
+    end
 
     it_should_behave_like 'a bookshelf'
   end
