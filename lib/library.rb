@@ -3,7 +3,7 @@ require_relative 'library/bookshelf'
 class Library
   attr_reader :books
   def initialize
-    @books = Bookshelf.new
+    @books = Bookshelf::InMemory.new
   end
 
   def add_book(title)
