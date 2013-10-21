@@ -37,6 +37,10 @@ class Library
         end
       end
 
+      def size
+        @collection.count
+      end
+
       def clear
         @collection.remove
       end

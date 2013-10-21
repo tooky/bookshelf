@@ -24,9 +24,14 @@ module DomainDriver
 end
 
 module WebUIDriver
+  def bookshelf
+    return @bookshelf if @bookshelf
+    db = ::Mongo::MongoClient.new("localhost", 27017).db("bookshelf-test") 
+    @bookshelf = Library::Bookshelf::Mongo.new(db)
+  end
 
   def library
-    @library ||= Library.new
+    @library ||= Library.new(bookshelf)
   end
 
   def search_by_title(title)
@@ -37,7 +42,6 @@ module WebUIDriver
   end
 
   def add_book(book)
-    Capybara.app.set :library, library
     visit '/add'
     fill_in 'title', with: book
     click_button 'Save'
@@ -58,5 +62,11 @@ else
   Capybara.app = Sinatra::Application
   Capybara.app.set :environment, :test
   Capybara.save_and_open_page_path = File.expand_path("./tmp/capybara")
+
+  Before do
+    Capybara.app.set :library, library
+    bookshelf.clear
+  end
+
   World(WebUIDriver)
 end
