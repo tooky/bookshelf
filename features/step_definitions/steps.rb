@@ -17,10 +17,6 @@ When(/^I search for a book$/) do
   search_by_title 'Ruby'
 end
 
-When(/^I search for a book using lowercase$/) do
-  search_by_title 'ruby'
-end
-
 Then(/^shows the book$/) do
   expect( search_results ).to eq [Library::Book.new("Ruby Programming")]
 end

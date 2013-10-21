@@ -31,6 +31,14 @@ describe Library::Bookshelf do
     )
   end
 
+  it "ignores case when searching" do
+    bookshelf.add a_book( 'Sociology' )
+
+    expect( bookshelf.search_by_title("sociology") ).to eq(
+      [Library::Book.new('Sociology')]
+    )
+  end
+
   def a_book(title)
     Library::Book.new(title)
   end
